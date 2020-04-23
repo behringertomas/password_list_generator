@@ -10,7 +10,7 @@ def main():
 
     print("{0}Ingrese OK para finalizar de llenar la información.".format(DEFAULT))
     try:
-        option = get_user_input()
+        option = get_user_input_option()
         if str(option).lower() != "ok":
             option = int(option)
             add_data(option)
