@@ -107,7 +107,7 @@ def menu():
     return menu
 
 
-def get_user_input():
+def get_user_input_option():
     try:
         option = input("{0}[+] Ingrese un numero de opcion : {1}".format(DEFAULT, DEFAULT))
         return option
@@ -120,5 +120,6 @@ def get_user_input():
 def add_data(option):
     try:
         print(json_data_options[str(option)]['description'])
+
     except ValueError:
         raise ValueError("La opcion ingresada no existe.")
