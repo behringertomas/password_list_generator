@@ -1,57 +1,82 @@
 RED, WHITE, CYAN, GREEN, DEFAULT = '\033[91m', '\033[46m', '\033[36m', '\033[1;32m', '\033[0m'
 
+# ------------------------------------
+# -- Data Types Available for Input --
+# ------------------------------------
+
+STRING = "String"
+INT = "int"
+SHORT_INT = "short_int"
+EMAIL = "Email"
+DATE = "Date"
+LIST = "List"
+
+
 json_data_options = {
     "1": {
         "description": "1:- Nombre de la persona",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "2": {
         "description": "2:- Celular de la persona",
-        "data": None
+        "data": None,
+        "type": INT
     },
     "3": {
         "description": "3:- Apellido de la persona",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "4": {
         "description": "4:- Nombre de la pareja de la persona",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "5": {
         "description": "5:- Apodo de la persona",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "6": {
         "description": "6:- Apellido de la pareja de la persona",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "7": {
         "description": "7:- Email de la persona",
-        "data": None
+        "data": None,
+        "type": EMAIL
     },
     "8": {
         "description": "8:- Fecha de Nacimiento de la pareja de la persona [dd/mm/yyyy]",
-        "data": None
+        "data": None,
+        "type": DATE
     },
     "9": {
         "description": "9:- Fecha de Nacimiento de la persona [dd/mm/yyyy]",
-        "data": None
+        "data": None,
+        "type": DATE
     },
     "10": {
         "description": "10:- Compañia de trabajo/empleo",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "11": {
         "description": "11:- Altura de la direccion de la casa de la persona",
-        "data": None
+        "data": None,
+        "type": SHORT_INT
     },
     "12": {
         "description": "12:- Calle donde vive la persona",
-        "data": None
+        "data": None,
+        "type": STRING
     },
     "13": {
         "description": "13:- Otros datos relevantes (Colocarlos separados por comas)",
-        "data": None
+        "data": None,
+        "type": LIST
     }
 
 }
