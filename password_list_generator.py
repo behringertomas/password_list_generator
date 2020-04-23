@@ -15,15 +15,13 @@ import sys
 # Declarations
 if int(sys.version_info[0]) is 2:
     input = raw_input
-global monthly
-global list1
 
-monthly = {"01": "jan", "02": "feb", "03": "march", "04": "april", "05": "may", "06": "june", "07": "july",
-           "08": "aug", "09": "sept", "10": "oct", "11": "nov", "12": "dec"}
+dict_months = {"01": "enero", "02": "febrero", "03": "marzo", "04": "abril", "05": "mayo", "06": "junio", "07": "julio",
+         "08": "agosto", "09": "septiembre", "10": "octubre", "11": "noviembre", "12": "diciembre"}
 
-charlist = ['@', '*', '!', '#', '$']
+lst_special_characters = ['@', '*', '!', '#', '$']
 
-random_list = ['98765', '9876', '987', '123', '1234', '12345']
+lst_numeros = ['98765', '9876', '987', '123', '1234', '12345']
 
 password_list = list()
 list1 = list()
@@ -42,9 +40,9 @@ def datepart(date):
         list1.append(month)
         list1.append(year)
         try:
-            list1.append(monthly[month])
+            list1.append(dict_months[month])
         except:
-            print("Month not entered Correctly")
+            print("Fecha Mal Ingresada")
         list1.append(date[::-1])
         list1.append(month[::-1])
         list1.append(year[::-1])
@@ -83,29 +81,29 @@ company = input("Enter Comppany's name: ")
 other = input("Enter Any other information for password seperate the words by ',' : ").replace(" ", "")
 words2 = other.split(",")
 try:
-    maxm = int(input("[+] Enter maximum no. of characters for the wordlist( by default 16 ): "))
+    maxm = int(input("[+] Maxima Cantidad de caracteres de las contraseñas( by default 12 ): "))
 except:
-    maxm = 16
+    maxm = 12
 
 try:
-    minm = int(input("[+] Enter maximum no. of characters for the wordlist( by default 8 ): "))
+    minm = int(input("[+] Minima Cantidad de caracteres de las contraseñas( by default 8 ): "))
 except:
     minm = 8
 
-spycn = input("[+] Do you want to add special characters in the end of the list? : [y/n] ").lower()
+spycn = input("[+] Agregar caracteres especiales al final de la lista? : [y/n] ").lower()
 
 if spycn == 'y':
     special = list()
-    for spec1 in charlist:
+    for spec1 in lst_special_characters:
         special.append(spec1)
-        for spec2 in charlist:
+        for spec2 in lst_special_characters:
             special.append(spec1 + spec2)
-            for spec3 in charlist:
+            for spec3 in lst_special_characters:
                 special.append(spec1 + spec2 + spec3)
 
 leet = input(
-    "[+] 1337 mode? (Example:  hello = h3110 ) : [y/n] ").lower()  # 1337 mode can convert the characters to leet speak and hello = h3110
-random = input("[+] Want to add random numbers in the end of the words : [y/n] ").lower()
+    "[+] Activar modo 1337 ? (Ejemplo:  hello = h3110 ) : [y/n] ").lower()  # 1337 mode can convert the characters to leet speak and hello = h3110
+random = input("[+] Agregar numeros aleatorios al final de las contraseñas? : [y/n] ").lower()
 
 ################################
 
@@ -135,6 +133,11 @@ datepart(dob)
 list1 = list(filter(None, list1))  # removing empty data
 
 falela = open("test.txt", "w")
+
+
+
+# Algoritmo principal
+
 
 for i in list1:
     password_list.append(i)
@@ -169,7 +172,7 @@ if leet == 'y':
 
 if random == 'y':
     for i in password_list:
-        for j in random_list:
+        for j in lst_numeros:
             random_l.append(i + j)
 else:
     random_l = password_list
