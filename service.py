@@ -93,19 +93,19 @@ def banner_menu():
 
 def menu():
     index = 1
-    menu = ""
+    _menu = ""
     for option in json_data_options.items():
-        menu += option[1]['description']
+        _menu += option[1]['description']
         if index % 2 == 1:
             if len(str(option[1]['description'])) < 28:
-                menu += "\t\t\t\t\t\t"
+                _menu += "\t\t\t\t\t\t"
             else:
-                menu += "\t\t\t"
+                _menu += "\t\t\t"
         else:
-            menu += "\n"
+            _menu += "\n"
         index += 1
 
-    return menu
+    return _menu
 
 
 def get_user_input_option():
