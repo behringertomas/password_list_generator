@@ -88,7 +88,8 @@ def banner_menu():
     *******************************************************************************************
     *****************************  PASSWORD LIST GENERATOR   **********************************
     *******************************************************************************************
-    *******************************************************************************************{0}'''.format(RED, RESET))
+    *******************************************************************************************{0}'''.format(RED,
+                                                                                                             RESET))
     print()
 
 
@@ -206,7 +207,12 @@ def validate_string(data_string):
     for char in data_string:
         if char.isdigit():
             raise ValueError("Se ingresaron caracteres donde van solo numeros.")
-    return data_string
+    data_altogether = ""
+    list_data_string = data_string.split(" ")
+
+    for word in list_data_string:
+        data_altogether += word.strip()
+    return data_altogether
 
 
 def validate_int(data_string):
