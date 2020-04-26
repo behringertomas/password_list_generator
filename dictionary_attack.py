@@ -16,7 +16,9 @@ def main():
             show_prompt_to_input(option)
             data_entered_by_user = get_user_input_data()
             data_validated = validate(data_entered_by_user, option)
-            print(data_validated)
+
+            json_data_options[str(option)]["data"] = data_validated
+            main()
         # else:
     except ValueError:
         main()
