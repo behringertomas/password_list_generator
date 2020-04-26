@@ -15,7 +15,7 @@ LIST = "List"
 
 json_data_options = {
     "1": {
-        "description": "1:- Nombre de la persona: ",
+        "description": "1:- Nombre/s de la persona: ",
         "data": None,
         "type": STRING
     },
@@ -25,22 +25,22 @@ json_data_options = {
         "type": INT
     },
     "3": {
-        "description": "3:- Apellido de la persona: ",
+        "description": "3:- Apellido/s de la persona: ",
         "data": None,
         "type": STRING
     },
     "4": {
-        "description": "4:- Nombre de la pareja de la persona: ",
+        "description": "4:- Nombre/s de la pareja de la persona: ",
         "data": None,
         "type": STRING
     },
     "5": {
-        "description": "5:- Apodo de la persona: ",
+        "description": "5:- Apodo/s de la persona: ",
         "data": None,
         "type": STRING
     },
     "6": {
-        "description": "6:- Apellido de la pareja de la persona: ",
+        "description": "6:- Apellido/s de la pareja de la persona: ",
         "data": None,
         "type": STRING
     },
@@ -207,12 +207,13 @@ def validate_string(data_string):
     for char in data_string:
         if char.isdigit():
             raise ValueError("Se ingresaron caracteres donde van solo numeros.")
-    data_altogether = ""
+    data_capitalized = ""
     list_data_string = data_string.split(" ")
-
     for word in list_data_string:
-        data_altogether += word.strip()
-    return data_altogether
+        data_capitalized += word.strip().capitalize()
+        data_capitalized += " "
+
+    return data_capitalized
 
 
 def validate_int(data_string):
