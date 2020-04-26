@@ -1,7 +1,7 @@
 from datetime import datetime
 
-RED, WHITE, CYAN, GREEN, DEFAULT = '\033[91m', '\033[46m', '\033[36m', '\033[1;32m', '\033[0m'
-
+RED, WHITE, CYAN, GREEN, DEFAULT, YELLOW_BOLD = '\033[91m', '\033[46m', '\033[36m', '\033[1;32m', '\033[0m', '\033[1;33m'
+RESET = '\033[39m'
 # ------------------------------------
 # -- Data Types Available for Input --
 # ------------------------------------
@@ -15,67 +15,67 @@ LIST = "List"
 
 json_data_options = {
     "1": {
-        "description": "1:- Nombre de la persona",
+        "description": "1:- Nombre de la persona: ",
         "data": None,
         "type": STRING
     },
     "2": {
-        "description": "2:- Celular de la persona",
+        "description": "2:- Celular de la persona: ",
         "data": None,
         "type": INT
     },
     "3": {
-        "description": "3:- Apellido de la persona",
+        "description": "3:- Apellido de la persona: ",
         "data": None,
         "type": STRING
     },
     "4": {
-        "description": "4:- Nombre de la pareja de la persona",
+        "description": "4:- Nombre de la pareja de la persona: ",
         "data": None,
         "type": STRING
     },
     "5": {
-        "description": "5:- Apodo de la persona",
+        "description": "5:- Apodo de la persona: ",
         "data": None,
         "type": STRING
     },
     "6": {
-        "description": "6:- Apellido de la pareja de la persona",
+        "description": "6:- Apellido de la pareja de la persona: ",
         "data": None,
         "type": STRING
     },
     "7": {
-        "description": "7:- Email de la persona",
+        "description": "7:- Email de la persona: ",
         "data": None,
         "type": EMAIL
     },
     "8": {
-        "description": "8:- Fecha de Nacimiento de la pareja de la persona [dd/mm/yyyy]",
+        "description": "8:- Fecha de Nacimiento de la pareja de la persona [dd/mm/yyyy]: ",
         "data": None,
         "type": DATE
     },
     "9": {
-        "description": "9:- Fecha de Nacimiento de la persona [dd/mm/yyyy]",
+        "description": "9:- Fecha de Nacimiento de la persona [dd/mm/yyyy]: ",
         "data": None,
         "type": DATE
     },
     "10": {
-        "description": "10:- Compañia de trabajo/empleo",
+        "description": "10:- Compañia de trabajo/empleo: ",
         "data": None,
         "type": STRING
     },
     "11": {
-        "description": "11:- Altura de la direccion de la casa de la persona",
+        "description": "11:- Altura de la direccion de la casa de la persona: ",
         "data": None,
         "type": SHORT_INT
     },
     "12": {
-        "description": "12:- Calle donde vive la persona",
+        "description": "12:- Calle donde vive la persona: ",
         "data": None,
         "type": STRING
     },
     "13": {
-        "description": "13:- Otros datos relevantes (Colocarlos separados por comas)",
+        "description": "13:- Otros datos relevantes (Colocarlos separados por comas): ",
         "data": None,
         "type": LIST
     }
@@ -88,16 +88,27 @@ def banner_menu():
     *******************************************************************************************
     *****************************  PASSWORD LIST GENERATOR   **********************************
     *******************************************************************************************
-    *******************************************************************************************{1}'''.format(RED, CYAN))
+    *******************************************************************************************{0}'''.format(RED, RESET))
+    print()
 
 
 def menu():
     index = 1
     _menu = ""
+    _menu += CYAN
     for option in json_data_options.items():
-        _menu += option[1]['description']
+        _menu += str(option[1]['description'])
+        length_of_field_description = len(str(option[1]['description']))
+        length_of_field_data = 0
+        if option[1]['data'] is not None:
+            _menu += "\033[1;33m"
+            _menu += str(option[1]['data'])
+            _menu += CYAN
+            length_of_field_data = len(str(option[1]['data']))
+
+        total_length = length_of_field_description + length_of_field_data
         if index % 2 == 1:
-            if len(str(option[1]['description'])) < 28:
+            if total_length < 30:
                 _menu += "\t\t\t\t\t\t"
             else:
                 _menu += "\t\t\t"
