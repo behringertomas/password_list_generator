@@ -101,7 +101,7 @@ def menu():
         length_of_field_description = len(str(option[1]['description']))
         length_of_field_data = 0
         if option[1]['data'] is not None:
-            _menu += "\033[1;33m"
+            _menu += YELLOW_BOLD
             _menu += str(option[1]['data'])
             _menu += CYAN
             length_of_field_data = len(str(option[1]['data']))
