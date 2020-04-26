@@ -1,3 +1,5 @@
+from datetime import datetime
+
 RED, WHITE, CYAN, GREEN, DEFAULT = '\033[91m', '\033[46m', '\033[36m', '\033[1;32m', '\033[0m'
 
 # ------------------------------------
@@ -10,7 +12,6 @@ SHORT_INT = "short_int"
 EMAIL = "Email"
 DATE = "Date"
 LIST = "List"
-
 
 json_data_options = {
     "1": {
@@ -117,9 +118,117 @@ def get_user_input_option():
         raise e
 
 
-def add_data(option):
+def get_user_input_data():
+    try:
+        data = input("{0}[+]: {1}".format(DEFAULT, DEFAULT))
+        return data
+    except KeyboardInterrupt:
+        raise KeyboardInterrupt("\n{0}Se interrumpió la ejecución.{1}".format(RED, RED))
+    except Exception as e:
+        raise e
+
+
+def show_prompt_to_input(option):
     try:
         print(json_data_options[str(option)]['description'])
-
     except ValueError:
         raise ValueError("La opcion ingresada no existe.")
+
+
+def validate(data, option):
+    try:
+        data_string = str(data)
+        if len(data_string) <= 0:
+            raise ValueError("No se ingresó nada.")
+
+        _type = json_data_options[str(option)]['type']
+
+        if _type == STRING:
+            try:
+                validated_data = validate_string(data_string)
+                return validated_data
+            except ValueError as e:
+                raise ValueError(e)
+
+        elif _type == INT:
+            try:
+                validated_data = validate_int(data_string)
+                return validated_data
+            except ValueError as e:
+                raise ValueError(e)
+
+        elif _type == SHORT_INT:
+            try:
+                validated_data = validate_short_int(data_string)
+                return validated_data
+            except ValueError as e:
+                raise ValueError(e)
+
+        elif _type == EMAIL:
+            try:
+                validated_data = validate_email(data_string)
+                return validated_data
+            except ValueError as e:
+                raise ValueError(e)
+
+        elif _type == DATE:
+            try:
+                validated_data = validate_date(data_string)
+                return validated_data
+            except ValueError as e:
+                raise ValueError(e)
+
+        elif _type == LIST:
+            entered_list = data_string.split(",")
+            cleaned_list = []
+            for word in entered_list:
+                trimmed_word = str(word).strip()
+                cleaned_list.append(trimmed_word)
+
+            return cleaned_list
+
+    except Exception:
+        raise ValueError("Error en el dato ingresado.")
+
+
+def validate_string(data_string):
+    for char in data_string:
+        if char.isdigit():
+            raise ValueError("Se ingresaron caracteres donde van solo numeros.")
+    return data_string
+
+
+def validate_int(data_string):
+    try:
+        data_int = int(data_string)
+        return data_int
+    except ValueError:
+        raise ValueError("Se ingresaron palabras donde iban numeros.")
+
+
+def validate_short_int(data_string):
+    if len(data_string) > 5:
+        raise ValueError("El numero ingresado es demasiado grande.")
+    try:
+        data_int = validate_int(data_string)
+        return data_int
+    except ValueError as e:
+        raise ValueError(e)
+
+
+def validate_email(data_string):
+    if not data_string.__contains__('@'):
+        raise ValueError("El email debe contener @.")
+    else:
+        emails, sep, tail = data_string.partition("@")
+        if len(emails) < 6:
+            raise ValueError("Nombre de Email demasiado corto. Debe superar las 6 letras al menos.")
+        return data_string
+
+
+def validate_date(data_string):
+    try:
+        datetime.strptime(data_string, "%d/%m/%Y")
+        return data_string
+    except ValueError:
+        raise ValueError("Formato de fecha erroneo.")
