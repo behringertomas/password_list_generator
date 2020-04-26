@@ -75,7 +75,12 @@ json_data_options = {
         "type": STRING
     },
     "13": {
-        "description": "13:- Otros datos relevantes (Colocarlos separados por comas): ",
+        "description": "13:- Número de teléfono fijo de la persona: ",
+        "data": None,
+        "type": INT
+    },
+    "14": {
+        "description": "14:- Otros datos relevantes (Colocarlos separados por comas): ",
         "data": None,
         "type": LIST
     }
