@@ -80,6 +80,12 @@ child = input("Enter child's name: ").lower()
 company = input("Enter Comppany's name: ")
 other = input("Enter Any other information for password seperate the words by ',' : ").replace(" ", "")
 words2 = other.split(",")
+
+
+
+# --------------------------------------------------------------------------------
+# ---------------------------    PARTE 2  ----------------------------------------
+# --------------------------------------------------------------------------------
 try:
     maxm = int(input("[+] Maxima Cantidad de caracteres de las contraseñas( by default 12 ): "))
 except:
