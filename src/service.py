@@ -274,7 +274,7 @@ def validate(data, option, json):
             entered_list = data_string.split(",")
             cleaned_list = []
             for word in entered_list:
-                trimmed_word = str(word).strip()
+                trimmed_word = str(word).strip().capitalize()
                 cleaned_list.append(trimmed_word)
 
             return cleaned_list
