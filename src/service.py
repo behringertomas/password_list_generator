@@ -349,6 +349,3 @@ def validate_bool(data_string):
     else:
         raise ValueError("No se ingresó un bool correcto.")
 
-
-# def generate_passwords_file(min_length, max_length, specials, mode_1337):
-#     print(min_length, max_length, specials, mode_1337)
