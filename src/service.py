@@ -207,6 +207,10 @@ def show_prompt_to_input_json_parameters(option):
         raise InvalidOptionJsonPasswordParameters("La opcion ingresada no existe.")
 
 
+# ------------------------------------
+# ----------- Validations ------------
+# ------------------------------------
+
 def validate_json_data_options(data, option):
     try:
         data_validated = validate(data, option, json_data_options)
@@ -348,4 +352,3 @@ def validate_bool(data_string):
         return False
     else:
         raise ValueError("No se ingresó un bool correcto.")
-
