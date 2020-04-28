@@ -59,7 +59,7 @@ def fill_password_parameters():
         else:
             banner_menu()
             print()
-            generate_passwords_file()
+            generate_passwords_file(json_data_options, json_password_parameters)
     except InvalidOptionJsonPasswordParameters:
         fill_password_parameters()
     except ValueError:
