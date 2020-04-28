@@ -64,6 +64,8 @@ def fill_password_parameters():
         fill_password_parameters()
     except ValueError:
         fill_password_parameters()
+    except NoDataEntered:
+        main()
 
 
 if __name__ == '__main__':
