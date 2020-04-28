@@ -66,6 +66,8 @@ def fill_password_parameters():
         fill_password_parameters()
     except NoDataEntered:
         main()
+    except KeyboardInterrupt as e:
+        print(e)
 
 
 if __name__ == '__main__':
