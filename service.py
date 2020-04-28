@@ -1,7 +1,9 @@
 from datetime import datetime
+from exceptions.exceptions import InvalidOptionJsonPasswordParameters
 
 RED, WHITE, CYAN, GREEN, DEFAULT, YELLOW_BOLD = '\033[91m', '\033[46m', '\033[36m', '\033[1;32m', '\033[0m', '\033[1;33m'
 RESET = '\033[39m'
+
 # ------------------------------------
 # -- Data Types Available for Input --
 # ------------------------------------
@@ -12,6 +14,16 @@ SHORT_INT = "short_int"
 EMAIL = "Email"
 DATE = "Date"
 LIST = "List"
+BOOLEAN = "Boolean"
+
+# ------------------------------------
+# ---------- Default Values ----------
+# ------------------------------------
+
+DEFAULT_MAX_LENGTH = 12
+DEFAULT_MIN_LENGTH = 8
+DEFAULT_BOOL_ADD_SPECIALS = False
+DEFAULT_BOOL_MODE_1337 = False
 
 json_data_options = {
     "1": {
@@ -87,6 +99,29 @@ json_data_options = {
 
 }
 
+json_password_parameters = {
+    "1": {
+        "description": "1:- Indique máximo length de las contraseñas: ",
+        "data": DEFAULT_MAX_LENGTH,
+        "type": SHORT_INT
+    },
+    "2": {
+        "description": "2:- Indique mínimo length de las contraseñas: ",
+        "data": DEFAULT_MIN_LENGTH,
+        "type": SHORT_INT
+    },
+    "3": {
+        "description": "3:- ¿Desea agregarle caracteres especiales a las contraseñas? [y/N]: ",
+        "data": DEFAULT_BOOL_ADD_SPECIALS,
+        "type": BOOLEAN
+    },
+    "4": {
+        "description": "4:- ¿Desea generar las contraseñas en modo 1337 (Ejemplo: hola = h01@)? [y/N]: ",
+        "data": DEFAULT_BOOL_MODE_1337,
+        "type": BOOLEAN
+    }
+}
+
 
 def banner_menu():
     print('''{0}    *******************************************************************************************
@@ -115,14 +150,27 @@ def menu():
         total_length = length_of_field_description + length_of_field_data
         if index % 2 == 1:
             if total_length < 30:
-                _menu += "\t\t\t\t\t\t"
+                _menu += "\t\t\t\t"
             else:
-                _menu += "\t\t\t"
+                _menu += "\t\t"
         else:
             _menu += "\n"
         index += 1
 
-    return _menu
+    print(_menu)
+
+
+def show_password_parameters():
+    _parameters = ""
+    _parameters += CYAN
+    for option in json_password_parameters.items():
+        _parameters += str(option[1]['description'])
+        _parameters += YELLOW_BOLD
+        _parameters += str(option[1]['data'])
+        _parameters += CYAN
+        _parameters += "\n"
+
+    print(_parameters)
 
 
 def get_user_input_option():
@@ -145,20 +193,43 @@ def get_user_input_data():
         raise e
 
 
-def show_prompt_to_input(option):
+def show_prompt_to_input_json_data(option):
     try:
         print(json_data_options[str(option)]['description'])
     except ValueError:
         raise ValueError("La opcion ingresada no existe.")
 
 
-def validate(data, option):
+def show_prompt_to_input_json_parameters(option):
+    try:
+        print(json_password_parameters[str(option)]['description'])
+    except ValueError:
+        raise InvalidOptionJsonPasswordParameters("La opcion ingresada no existe.")
+
+
+def validate_json_data_options(data, option):
+    try:
+        data_validated = validate(data, option, json_data_options)
+        return data_validated
+    except ValueError as e:
+        raise ValueError(e)
+
+
+def validate_json_password_parameters(data, option):
+    try:
+        data_validated = validate(data, option, json_password_parameters)
+        return data_validated
+    except ValueError as e:
+        raise InvalidOptionJsonPasswordParameters(e)
+
+
+def validate(data, option, json):
     try:
         data_string = str(data)
         if len(data_string) <= 0:
             raise ValueError("No se ingresó nada.")
 
-        _type = json_data_options[str(option)]['type']
+        _type = json[str(option)]['type']
 
         if _type == STRING:
             try:
@@ -204,8 +275,21 @@ def validate(data, option):
 
             return cleaned_list
 
+        elif _type == BOOLEAN:
+            try:
+                validated_data = validate_bool(data_string)
+                return validated_data
+            except ValueError as e:
+                raise ValueError(e)
+
     except Exception:
         raise ValueError("Error en el dato ingresado.")
+
+
+def validate_range_of_length():
+    if json_password_parameters['1']['data'] < json_password_parameters['2']['data']:
+        json_password_parameters['1']['data'] = DEFAULT_MAX_LENGTH
+        json_password_parameters['2']['data'] = DEFAULT_MIN_LENGTH
 
 
 def validate_string(data_string):
@@ -215,7 +299,7 @@ def validate_string(data_string):
     data_capitalized = ""
     list_data_string = data_string.split(" ")
     for word in list_data_string:
-        data_capitalized += word.strip().capitalize()
+        data_capitalized += word.strip().lower().capitalize()
         data_capitalized += " "
 
     return data_capitalized
@@ -255,3 +339,16 @@ def validate_date(data_string):
         return data_string
     except ValueError:
         raise ValueError("Formato de fecha erroneo.")
+
+
+def validate_bool(data_string):
+    if data_string == "y":
+        return True
+    elif data_string == "n":
+        return False
+    else:
+        raise ValueError("No se ingresó un bool correcto.")
+
+
+# def generate_passwords_file(min_length, max_length, specials, mode_1337):
+#     print(min_length, max_length, specials, mode_1337)
