@@ -17,14 +17,6 @@ def main():
             main()
         else:
             fill_password_parameters()
-            # max_length = show_prompt_to_input_max_length()
-            # min_length = show_prompt_to_input_min_length()
-            # min_length, max_length = validate_range_of_length(min_length, max_length)
-            # specials = show_prompt_to_input_add_specials()
-            # mode_1337 = show_prompt_to_input_mode_1337()
-
-            # generate_passwords_file(min_length, max_length, specials, mode_1337)
-
     except ValueError:
         main()
     except KeyboardInterrupt as e:
