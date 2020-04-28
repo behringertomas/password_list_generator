@@ -1,5 +1,6 @@
 import os
-from service import *
+from src.service import *
+from src.password_generator import *
 from exceptions.exceptions import InvalidOptionJsonPasswordParameters
 
 
@@ -58,7 +59,7 @@ def fill_password_parameters():
         else:
             banner_menu()
             print()
-            print("{0}Generar".format(RESET))
+            generate_passwords_file()
     except InvalidOptionJsonPasswordParameters:
         fill_password_parameters()
     except ValueError:
